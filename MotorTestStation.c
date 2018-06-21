@@ -58,7 +58,7 @@ void getMotorType()
 	// Decides what type of motor the motor being tested is based on its tps
 	if(tps == 0)
 		type = "NA";
-	else if(tps < 800)
+	else if(tps < 660) //I pulled this number off of the VEX Website and rounded it off a bit for allowance.
 		type = "Torque";
 	else if(tps < 1200)
 		type = "Speed";
