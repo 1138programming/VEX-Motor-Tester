@@ -33,7 +33,6 @@ void getMotorType()
 {
 	// Reset some variables
 	tps = 0;
-	clearTimer(T1);
 	SensorValue(encoder) = 0;
 	resetMotorEncoder(TestMotor);
 
@@ -52,7 +51,8 @@ void getMotorType()
 	// Stops the motor being tested
 	motor[TestMotor] = 0;
 
-	offset = abs(round(SensorValue(encoder) - getMotorEncoder(TestMotor))); // Gets the offset between the IME on the motor being tested and the shaft encoder
+	//offset = abs(round(SensorValue(encoder) - getMotorEncoder(TestMotor))); // Gets the offset between the IME on the motor being tested and the shaft encoder
+	offset = getMotorEncoder(TestMotor);
 	tps = abs(SensorValue(encoder) / 5); // Gets the ticks per second of the motor being tested
 
 	// Decides what type of motor the motor being tested is based on its tps
@@ -66,7 +66,7 @@ void getMotorType()
 		type = "Turbo";
 
 	// Checks if the motor being tested has a working IME
-	if(abs(offset) > 0)
+	if(abs(getMotorEncoder(TestMotor)) > 0)
 		IME = "<--IME: Found-->";
 	else
 		IME = "<-- IME: 404";
@@ -77,9 +77,6 @@ void getMotorType()
 
 task main()
 {
-	// Clear timers
-	clearTimer(T1);
-	clearTimer(T2);
 	resetMotorEncoder(TestMotor);
 
 	// Main while loop
